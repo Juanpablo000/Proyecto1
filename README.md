@@ -15,4 +15,4 @@ Juan Pablo Grisales
 
 ## Wireframes
 
-En esta sección se encunentran [clic aqui](https://github.com/lacd2/Proyecto1/tree/master/wireframes/") los wireframes del micrositio
+En esta sección se encunentran [clic aqui]("https://github.com/lacd2/Proyecto1/tree/master/wireframes/") los wireframes del micrositio
