@@ -15,4 +15,9 @@ Juan Pablo Grisales
 
 ## Wireframes
 
-En esta sección se encunentran [clic aqui](https://github.com/lacd2/Proyecto1/tree/master/wireframes/) los wireframes del micrositio
+En esta sección se encunentran [clic aqui](https://github.com/Juanpablo000/Proyecto1/tree/master/wireframes/) los wireframes del micrositio
+
+
+## Codigo
+
+En esta otra parte se encuentra el codigo del proyecto [clic aqui](https://github.com/Juanpablo000/Proyecto1/tree/master/Formularios)
