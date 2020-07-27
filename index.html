@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Formulario registro</title>
+	<meta charset="UTF-8"> 
+	<meta name = "viewport" content="width=device-width, initial-scale=1.0">
+	<title>Inicio</title>
 	<script type="text/javascript" src="js/main.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/main.css"></script>
 </head>
 <body>
 
-	<form action="scripts/script.php" method="post" name="f1" onsubmit="return validacion();">
-		<fieldset>
-		<legend>Formulario de registro</legend>
-		
+	<div class="container">
+		<div class="from-box">
+			<div class="button-box">
+			<div id="elegir"></div>
+			<button type="button" class="toggle-btn" onClick="login()">Iniciar sesion</button>
+			<button type="button" class="toggle-btn" onClick="registrar()">Registrarse</button>
+			</div>
 
-		<div>
+			<form action="scripts/script.php" class="input-group" id="login">
+				<input type="text" class="input-field" placeholder="Nombre de usuario" required>
+				<input type="password" class="input-field" placeholder="Contraseña" required>
+				<button type="submit" class="submit-btn">Acceder</button>
+			</form>
+
+		<form action="scripts/script.php" class="input-group" id="registro" method="post" name="f1" onsubmit="return validacion();">
+			<div>
 		<label for="nombre">Nombre</label>
 		<input type="text" name="nombre" id="nombre" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,24}" 
 		   oninvalid="this.setCustomValidity('Ingrese el nombre aqui, entre 2 y 24 caracteres')"
@@ -28,9 +39,11 @@
 		</div>
 
 		<div>
-		<label>Genero</label>
+		<fieldset>
+		<legend>Genero</legend>
 		<label><input type="radio" name="genero" value="Masculino"required/> Masculino </label>
 		<label><input type="radio" name="genero" value="Femenino" required/> Femenino </label>	
+		</fieldset>
 		</div>
 
 		<div>
@@ -42,14 +55,7 @@
 
 		<div>
 		<label for="departamentos">Departamentos</label>
-		<select id="select-departamentos" name="select-departamentos" onchange="LlenarCiudades(this.id,'select-ciudad')">
-			<option value="">Seleccione</option>
-			<option value="Antioquia">Antioquia</option>
-			<option value="Arauca">Arauca</option>
-			<option value="Cundinamarca">Cundinamarca</option>
-			<option value="Magdalena">Magdalena</option>
-			<option value="Valle del Cauca">Valle del Cauca</option>
-		</select>
+		<select id="select-departamentos" name="select-departamentos" onchange="LlenarCiudades(this.id,'select-ciudad')"></select>
 		</div>
 
 		<div>
@@ -74,10 +80,11 @@
 		<label for="pass">Confirmar contraseña</label>
 		<input type="password" name="password2" id="password2" pattern="[A-Za-z0-9!?-]{8,12}" required/>
 		</div>
+		<button type="submit" onClick="validacion()" class="submit-btn">Acceder</button>
+	   </form>
 
-		<input type="submit" value="enviar" onClick="validacion()">
-	</fieldset>
-	</form>
+	    </div>
+	</div>
 
 </body>
 </html>
