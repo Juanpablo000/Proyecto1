@@ -7,8 +7,7 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/main.css"></script>
 </head>
-<body>
-
+<body style="overflow-y:hidden">
 	<div class="container">
 		<div class="from-box">
 			<div class="button-box">
@@ -16,75 +15,60 @@
 			<button type="button" class="toggle-btn" onClick="login()">Iniciar sesion</button>
 			<button type="button" class="toggle-btn" onClick="registrar()">Registrarse</button>
 			</div>
+				<form action="scripts/script.php" class="input-group" id="login" method="post" onsubmit="return Verificar();">
+					<input name= "userA" id= "userA" type="text" class="input-field" placeholder="Nombre de usuario" pattern="[A-Za-z0-9!?-]{5,12}"  
+					oninvalid="this.setCustomValidity('Ingrese su nombre de usuario, entre 5 y 12 caracteres')"
+		            oninput="this.setCustomValidity('')" required/>
+					<input name = "claveA" id="claveA" type="password" class="input-field" placeholder="Contraseña" pattern="[A-Za-z0-9!?-]{8,12}" 
+					 oninvalid="this.setCustomValidity('Ingrese su contraseña, entre 8 y 12 caracteres')"
+		              oninput="this.setCustomValidity('')" required/>
+					<button type="submit" class="submit-btn" id="btn1">Acceder</button>
+				</form>
+	
+				<form action="" class="input-group" id="registro" method="post" name="f1">
+				<label for="nombre">Nombre</label>
+				<input type="text" class="input-f2" name="nombre" id="nombre" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,24}" 
+				   oninvalid="this.setCustomValidity('Ingrese el nombre aqui, entre 2 y 24 caracteres')"
+		           oninput="this.setCustomValidity('')" required/>
+				
+			
+				<label for="apellidos">Apellidos</label>
+				<input type="text" class="input-f2" name="apellidos" id="apellidos" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}" 
+				   oninvalid="this.setCustomValidity('Ingrese sus apellidos, entre 2 y 48 caracteres')"
+		           oninput="this.setCustomValidity('')" required/>
 
-			<form action="scripts/script.php" class="input-group" id="login">
-				<input type="text" class="input-field" placeholder="Nombre de usuario" required>
-				<input type="password" class="input-field" placeholder="Contraseña" required>
-				<button type="submit" class="submit-btn">Acceder</button>
-			</form>
+		        <label for="departamentos">Departamentos</label>
+				<select id="select-departamentos" name="select-departamentos" onchange="LlenarCiudades(this.id,'select-ciudad')"></select>
+			
+				<label for="ciudad">Ciudad</label>
+				<select id="select-ciudad" name="select-ciudad"></select>
 
-		<form action="scripts/script.php" class="input-group" id="registro" method="post" name="f1" onsubmit="return validacion();">
-			<div>
-		<label for="nombre">Nombre</label>
-		<input type="text" name="nombre" id="nombre" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,24}" 
-		   oninvalid="this.setCustomValidity('Ingrese el nombre aqui, entre 2 y 24 caracteres')"
-           oninput="this.setCustomValidity('')" required/>
-		</div>
-		
-		<div>
-		<label for="apellidos">Apellidos</label>
-		<input type="text" name="apellidos" id="apellidos" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}" 
-		   oninvalid="this.setCustomValidity('Ingrese sus apellidos, entre 2 y 48 caracteres')"
-           oninput="this.setCustomValidity('')" required/>
-		</div>
+				<fieldset>
+				<legend>Genero</legend>
+				<label><input type="radio" name="genero" value="Masculino"required/> Masculino </label>
+				<label><input type="radio" name="genero" value="Femenino" required/> Femenino </label>	
+				</fieldset>
+			
+				<label for="usuario">Nombre de usuario</label>
+				<input type="text" class="input-f2" name="usuario" id="usuario" pattern="[A-Za-z0-9!?-]{5,12}" 
+				   oninvalid="this.setCustomValidity('Ingrese su nombre de usuario, entre 5 y 12 caracteres')"
+		           oninput="this.setCustomValidity('')" required/>
+			
+				<label for="correo">Correo electrónico</label>
+				<input type="email" name="correo" class="input-f2" id="correo" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" required/>
+			
+			
+				<label for="pass">Contraseña</label>
+				<input type="password" class="input-f2" name="password" id="password" pattern="[A-Za-z0-9!?-]{8,12}" 
+				   oninvalid="this.setCustomValidity('Ingrese una contraseña valida, entre 8 y 12 caracteres')"
+		           oninput="this.setCustomValidity('')" required/>
 
-		<div>
-		<fieldset>
-		<legend>Genero</legend>
-		<label><input type="radio" name="genero" value="Masculino"required/> Masculino </label>
-		<label><input type="radio" name="genero" value="Femenino" required/> Femenino </label>	
-		</fieldset>
-		</div>
-
-		<div>
-		<label for="usuario">Nombre de usuario</label>
-		<input type="text" name="usuario" id="usuario" pattern="^([a-z]+[0-9]{0,2}){5,12}$" 
-		   oninvalid="this.setCustomValidity('Ingrese su nombre de usuario, entre 5 y 12 caracteres')"
-           oninput="this.setCustomValidity('')" required/>
-		</div>
-
-		<div>
-		<label for="departamentos">Departamentos</label>
-		<select id="select-departamentos" name="select-departamentos" onchange="LlenarCiudades(this.id,'select-ciudad')"></select>
-		</div>
-
-		<div>
-		<label for="ciudad">Ciudad</label>
-		<select id="select-ciudad" name="select-ciudad"></select>
-		</div>
-
-
-		<div>
-		<label for="correo">Correo electrónico</label>
-		<input type="email" name="correo" id="correo" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" required/>
-		</div>
-
-		<div>
-		<label for="pass">Contraseña</label>
-		<input type="password" name="password" id="password" pattern="[A-Za-z0-9!?-]{8,12}" 
-		   oninvalid="this.setCustomValidity('Ingrese una contraseña valida, entre 8 y 12 caracteres')"
-           oninput="this.setCustomValidity('')" required/>
-		</div>
-
-		<div>
-		<label for="pass">Confirmar contraseña</label>
-		<input type="password" name="password2" id="password2" pattern="[A-Za-z0-9!?-]{8,12}" required/>
-		</div>
-		<button type="submit" onClick="validacion()" class="submit-btn">Acceder</button>
-	   </form>
-
+			
+				<label for="pass">Confirmar contraseña</label>
+				<input type="password" class="input-f2" name="password2" id="password2" pattern="[A-Za-z0-9!?-]{8,12}" required/>
+				<button type="submit" onClick="validacion()" id="btn2"class="submit-btn">Registrarse</button>
+			   </form>
 	    </div>
 	</div>
-
 </body>
 </html>

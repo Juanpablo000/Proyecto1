@@ -20,10 +20,18 @@
 	<section class="contenido wrapper">
 		<form class="formContacto" id="contacto">
 		<h2>Contacto<h2>
-			<input type="text" class="input-f" placeholder="Nombre" required>
-			<input type="email" class="input-f" placeholder="Correo" required>
-			<input type="text" class="input-f" placeholder="Telefono" required>
-			<textarea name="mensaje" placeholder="Ingresa tu mensaje aqui" required></textarea>
+			<input type="text" class="input-f" placeholder="Nombre" pattern="[a-zA]{2,24}" 
+			oninvalid="this.setCustomValidity('Ingrese el nombre aqui, entre 2 y 24 caracteres')"
+		    oninput="this.setCustomValidity('')" required>
+			<input type="email" class="input-f" placeholder="Correo" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" 
+			oninvalid="this.setCustomValidity('Ingrese su correo aqui)"
+		    oninput="this.setCustomValidity('')" required>
+			<input type="text" class="input-f" placeholder="Asunto"  pattern="[a-zA]{10,18}"
+			oninvalid="this.setCustomValidity('Ingrese el asunto aqui, entre 10 y 18 caracteres')"
+		    oninput="this.setCustomValidity('')" required>
+			<textarea name="mensaje" placeholder="Ingresa tu mensaje aqui" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{10,50}" 
+			oninvalid="this.setCustomValidity('Ingresa tu mensaje aqui, entre 2 y 24 caracteres')"
+		    oninput="this.setCustomValidity('')" required></textarea>
 			<button type="submit" class="submit-btn">Enviar</button>
 			</form>
 	</section>
