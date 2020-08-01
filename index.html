@@ -15,7 +15,7 @@
 			<button type="button" class="toggle-btn" onClick="login()">Iniciar sesion</button>
 			<button type="button" class="toggle-btn" onClick="registrar()">Registrarse</button>
 			</div>
-				<form action="scripts/script.php" class="input-group" id="login" method="post" onsubmit="return Verificar();">
+				<form action="scripts/script.php" class="input-group" id="login" method="post">
 					<input name= "userA" id= "userA" type="text" class="input-field" placeholder="Nombre de usuario" pattern="[A-Za-z0-9!?-]{5,12}"  
 					oninvalid="this.setCustomValidity('Ingrese su nombre de usuario, entre 5 y 12 caracteres')"
 		            oninput="this.setCustomValidity('')" required/>
@@ -25,7 +25,7 @@
 					<button type="submit" class="submit-btn" id="btn1">Acceder</button>
 				</form>
 	
-				<form action="" class="input-group" id="registro" method="post" name="f1">
+				<form action="scripts/registro.php" class="input-group" id="registro" method="post" name="f1">
 				<label for="nombre">Nombre</label>
 				<input type="text" class="input-f2" name="nombre" id="nombre" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,24}" 
 				   oninvalid="this.setCustomValidity('Ingrese el nombre aqui, entre 2 y 24 caracteres')"

@@ -55,7 +55,6 @@ window.onload = ()=>{
 	userName = document.getElementById("userA");
 	userPw = document.getElementById("claveA");
 	LlenarDepartamentos();
-	asignarEventos();
 }
 
 function login(){
@@ -124,97 +123,10 @@ function validacion() {
        password2.value="";
        alert("Las contraseñas son distintas...");
    	   return false;
-	}else if(password.value == 0 || password2.value==0){
+	}else if(password.value == "" || password2.value==""){
        password.value="";
        password2.value="";
        alert("Ingrese una contraseña");
    	   return false;
-	}else{
-		GuardarLocalStorage();
 	}
-}
-
-function GuardarLocalStorage(){
-	contrl = true;
-    let ListaUsuarios = JSON.parse(localStorage.getItem("lista"));
-	
-	if(ListaUsuarios!=null){
-		//validar usario unico
-		var tm = ListaUsuarios.length;
-		for(var i=0; i<tm;i++){
-	        if(usuariotxt.value == ListaUsuarios[i].usuario){
-	            alert('El usuario ' + usuariotxt.value +' ya existe');
-	            contrl = false;
-	            break;
-	        }
-	    }
-        //validar correo unico
-	    for(var i=0; i<tm;i++){
-	        if(correotxt.value == ListaUsuarios[i].correo){
-	            alert('El correo ' + correotxt.value +' ya existe');
-	            contrl = false;
-	            break;
-	        }
-	    }
-	}
-
-    if (contrl!=false){
-    	let persona = {
-			nombre: nomtxt.value,
-			apellidos: apelltxt.value,
-			usuario: usuariotxt.value,
-			departamento: select_departamentos.value,
-			ciudad: select_ciudad.value,
-			genero: genero.value,
-            correo: correotxt.value,
-            clave: clavetxt.value,
-        };
-
-        oldInfo = JSON.parse(localStorage.getItem("lista"));
-
-	    if(!(oldInfo instanceof Array)){
-	        oldInfo = []; 
-	        oldInfo.push(persona); 
-	        localStorage.setItem("lista", JSON.stringify(oldInfo));
-	    }else{
-	        oldInfo.push(persona); 
-	        localStorage.setItem("lista", JSON.stringify(oldInfo));
-	    }
-	    document.forms[0].reset(); // limpliar el formulario
-	    alert('Su cuenta ha sido creada');
-    }	
-	
-}
-	
-function asignarEventos(){
-	var btn_accion = document.getElementById("btn1");
-	btn_accion.addEventListener("click", Verificar);
-}
-
-function Verificar(){
-    if(localStorage.getItem("lista")){
-        //existe lista en le local storage
-        var variable = 1;
- 
-        let ListaUsuarios = JSON.parse(localStorage.getItem("lista"));
-        var tm = ListaUsuarios.length;
-        for(var i=0; i<tm;i++){
-             if(userName.value == ListaUsuarios[i].usuario && userPw.value == ListaUsuarios[i].clave){
-                variable = -1;
-                //location.href = "../paginas/principal.html";
-                break;
-            }
-        }
-        if(variable==1){
-              alert('Error en el login');
-              document.forms[0].reset(); // limpliar el formulario
-              return false;
-        }else if(variable = -1){
-        	//alert('Has iniciado sesion');
-        	return true;
-        }
-    }else{
-        return false;
-        alert('Error: No hay entradas en el local storage');
-    }
 }
