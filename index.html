@@ -15,58 +15,43 @@
 			<button type="button" class="toggle-btn" onClick="login()">Iniciar sesion</button>
 			<button type="button" class="toggle-btn" onClick="registrar()">Registrarse</button>
 			</div>
-				<form action="scripts/script.php" class="input-group" id="login" method="post">
-					<input name= "userA" id= "userA" type="text" class="input-field" placeholder="Nombre de usuario" pattern="[A-Za-z0-9!?-]{5,12}"  
-					oninvalid="this.setCustomValidity('Ingrese su nombre de usuario, entre 5 y 12 caracteres')"
-		            oninput="this.setCustomValidity('')" required/>
-					<input name = "claveA" id="claveA" type="password" class="input-field" placeholder="Contraseña" pattern="[A-Za-z0-9!?-]{8,12}" 
-					 oninvalid="this.setCustomValidity('Ingrese su contraseña, entre 8 y 12 caracteres')"
-		              oninput="this.setCustomValidity('')" required/>
-					<button type="submit" class="submit-btn" id="btn1">Acceder</button>
+				<form action="scripts/script.php" class="input-group1" id="Flogin" method="post">
+				<input name= "userA" id= "userA" type="text" class="input-login" placeholder="Nombre de usuario" pattern="[A-Za-z0-9!?-]{5,12}" required/>
+				<input name = "claveA" id="claveA" type="password" class="input-login" placeholder="Contraseña" pattern="[a-zA-Z0-9\_\-]{8,12}$" required/>
+				<button type="submit" class="submit-btn" id="btn1">Acceder</button>
 				</form>
 	
 				<form action="scripts/registro.php" class="input-group" id="registro" method="post" name="f1">
-				<label for="nombre">Nombre</label>
-				<input type="text" class="input-f2" name="nombre" id="nombre" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,24}" 
-				   oninvalid="this.setCustomValidity('Ingrese el nombre aqui, entre 2 y 24 caracteres')"
-		           oninput="this.setCustomValidity('')" required/>
+					<input type="text" name="nombre" id="nombre" placeholder="Nombre" class="input-field" onkeyup="validationF(this.id)" required/>
+			        <span id="textNom"></span>
+
+					<input type="text"  class="input-field" name="apellidos" placeholder="Apellidos" id="apellidos" onkeyup="validationF(this.id)" required/>
+					<span id="textApp"></span>
+	
+					<fieldset>
+					<legend>Departamento y ciudad</legend>
+					<select id="select-departamentos" name="select-departamentos" onchange="LlenarCiudades()"></select>
+					<select id="select-ciudad" name="select-ciudad"></select>
+					</fieldset>
+
+					<fieldset>
+					<legend>Genero</legend>
+					<label><input type="radio" name="genero" value="Masculino"required/> Masculino </label>
+					<label><input type="radio" name="genero" value="Femenino" required/> Femenino </label>	
+					</fieldset>
 				
-			
-				<label for="apellidos">Apellidos</label>
-				<input type="text" class="input-f2" name="apellidos" id="apellidos" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}" 
-				   oninvalid="this.setCustomValidity('Ingrese sus apellidos, entre 2 y 48 caracteres')"
-		           oninput="this.setCustomValidity('')" required/>
+					<input type="text" class="input-field" placeholder="Usuario" name="usuario" id="usuario" onkeyup="validationF(this.id)" required/>
+			         <span id="textUsr"></span>
+				
+					<input type="email" name="correo" placeholder="Correo electronico" class="input-field" onkeyup="validationF(this.id)" id="correo"required/>
+					<span id="textCorreo"></span>
+				
+					<input type="password" class="input-field" placeholder="Contraseña" name="password" id="password" onkeyup="validationF(this.id)" required/>
+					<span id="texClr1"></span>
+					<input type="password" class="input-field" placeholder="Confime contraseña" name="password2" id="password2" onkeyup="validarClaves()" required/>
+					<span id="texClr2"></span>
 
-		        <label for="departamentos">Departamentos</label>
-				<select id="select-departamentos" name="select-departamentos" onchange="LlenarCiudades(this.id,'select-ciudad')"></select>
-			
-				<label for="ciudad">Ciudad</label>
-				<select id="select-ciudad" name="select-ciudad"></select>
-
-				<fieldset>
-				<legend>Genero</legend>
-				<label><input type="radio" name="genero" value="Masculino"required/> Masculino </label>
-				<label><input type="radio" name="genero" value="Femenino" required/> Femenino </label>	
-				</fieldset>
-			
-				<label for="usuario">Nombre de usuario</label>
-				<input type="text" class="input-f2" name="usuario" id="usuario" pattern="[A-Za-z0-9!?-]{5,12}" 
-				   oninvalid="this.setCustomValidity('Ingrese su nombre de usuario, entre 5 y 12 caracteres')"
-		           oninput="this.setCustomValidity('')" required/>
-			
-				<label for="correo">Correo electrónico</label>
-				<input type="email" name="correo" class="input-f2" id="correo" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" required/>
-			
-			
-				<label for="pass">Contraseña</label>
-				<input type="password" class="input-f2" name="password" id="password" pattern="[A-Za-z0-9!?-]{8,12}" 
-				   oninvalid="this.setCustomValidity('Ingrese una contraseña valida, entre 8 y 12 caracteres')"
-		           oninput="this.setCustomValidity('')" required/>
-
-			
-				<label for="pass">Confirmar contraseña</label>
-				<input type="password" class="input-f2" name="password2" id="password2" pattern="[A-Za-z0-9!?-]{8,12}" required/>
-				<button type="submit" onClick="validacion()" id="btn2"class="submit-btn">Registrarse</button>
+					<button type="submit" onClick="return val()" id="btn2"class="submit-btn">Registrarse</button>
 			   </form>
 	    </div>
 	</div>

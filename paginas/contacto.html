@@ -4,6 +4,7 @@
 	<meta charset="UTF-8"> 
 	<title>Formulario de contacto</title>
 	<link rel="stylesheet" type="text/css" href="../css/main.css"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
 </head>
 <body>
 	<header class="">
@@ -18,21 +19,15 @@
 		</div>
 	</header>
 	<section class="contenido wrapper">
-		<form class="formContacto" id="contacto">
+		<form action="" class="formContacto" id="contacto" method="post" name="f3">
 		<h2>Contacto<h2>
-			<input type="text" class="input-f" placeholder="Nombre" pattern="[a-zA]{2,24}" 
-			oninvalid="this.setCustomValidity('Ingrese el nombre aqui, entre 2 y 24 caracteres')"
-		    oninput="this.setCustomValidity('')" required>
-			<input type="email" class="input-f" placeholder="Correo" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" 
-			oninvalid="this.setCustomValidity('Ingrese su correo aqui)"
-		    oninput="this.setCustomValidity('')" required>
-			<input type="text" class="input-f" placeholder="Asunto"  pattern="[a-zA]{10,18}"
-			oninvalid="this.setCustomValidity('Ingrese el asunto aqui, entre 10 y 18 caracteres')"
-		    oninput="this.setCustomValidity('')" required>
-			<textarea name="mensaje" placeholder="Ingresa tu mensaje aqui" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{10,50}" 
-			oninvalid="this.setCustomValidity('Ingresa tu mensaje aqui, entre 2 y 24 caracteres')"
-		    oninput="this.setCustomValidity('')" required></textarea>
-			<button type="submit" class="submit-btn">Enviar</button>
+			<input type="text" class="input-f" id="NomContacto" placeholder="" readonly>
+			<input type="email" class="input-f" id="CorrContacto" placeholder="" readonly>
+			<input type="text" class="input-f" id="asunto" placeholder="Asunto" required>
+			<label>Entre 5 y 18 caracteres, no numericos</label>
+			<textarea id="mensaje" name="mensaje" placeholder="Ingresa tu mensaje aqui" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{10,50}" required></textarea>
+			<label>Entre 10 y 50 caracteres</label>
+			<button type="submit" onClick="return valF()" class="submit-btn">Enviar</button>
 			</form>
 	</section>
 

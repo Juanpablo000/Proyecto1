@@ -1,9 +1,15 @@
-let select_ciudad, select_departamentos, genero, x,y,z,nomtxt,apelltxt,correotxt,clavetxt, usuariotxt, userName, userPw;
-var oldInfo;
-let contrl;
+let select_ciudad, select_departamentos, genero, formulario,formularioR,z;
 let departamentos = ["Seleccione", "Antioquia", "Amazonas","Arauca", "Atlantico","Bolívar","Boyacá","Caldas","Caquetá","Casanare","Cauca","Cesar","Chocó",
 "Córdoba","Cundinamarca","Guainía","Guaviare","Huila","La Guajira","Magdalena","Meta","Nariño", "Norte de Santander", "Putumayo", "Quindío", "Risaralda",
 "San Andrés", "Santander", "Sucre","Tolima","Valle del Cauca","Vaupés", "Vichada"];
+const nombresID = ["nombre","apellidos","usuario","correo","password"];
+const regulares = [/^[a-zA-ZÀ-ÿ\s]{2,20}$/, /^[a-zA-ZÀ-ÿ\s]{2,30}$/,/^[a-zA-Z0-9\_\-]{4,12}$/,
+/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,/^[a-zA-Z0-9\_\-]{8,12}$/];
+let arregloTextos = ["textNom","textApp","textUsr","textCorreo","texClr1"];	
+let arregloMensajePos = ["Nombre valido", "Apellidos validos","Usuario valido", "Correo valido","Contraseña valida"];
+let arregloMensaNeg = ["Nombre invalido", "Apellidos invalidos", "Usuario invalido", "Correo invalido","Contraseña invalida"];
+let camposVal = [false,false,false,false,false,false,false];
+              //nombre,apellidos,usuario, correo, clave, conf clave, departamento
 
 let ciudades = [];
 ciudades[0] = ["Medellín","Envigado","Sabaneta","Bello"];
@@ -40,32 +46,32 @@ ciudades[30] = ["Mitú","Carurú","Taraira","Papunaua"];
 ciudades[31] = ["Cumaribo","Puerto Carreño","La Primavera","Santa Rosalía"];
 
 window.onload = ()=>{
+
 	select_departamentos = document.getElementById("select-departamentos");
 	select_ciudad = document.getElementById("select-ciudad");
-	genero = document.getElementsByName("genero");
-	x = document.getElementById("login");
-	y = document.getElementById("registro");
+	formulario = document.getElementById("Flogin");
+	formularioR = document.getElementById("registro");
 	z = document.getElementById("elegir");
+	
+	if(document.getElementById("contacto")!=null){
+		CambiarTexto();
+	}
 
-	usuariotxt = document.getElementById("usuario");
-	clavetxt = document.getElementById("password");
-	correotxt = document.getElementById("correo");
-	nomtxt = document.getElementById("nombre");
-	apelltxt = document.getElementById("apellidos");
-	userName = document.getElementById("userA");
-	userPw = document.getElementById("claveA");
-	LlenarDepartamentos();
-}
+	if(formulario!=null){
+		LlenarDepartamentos();
+	}
+	
+};
 
 function login(){
-	x.style.left = "50px";
-	y.style.left = "450px";
+	formulario.style.left = "50px";
+	formularioR.style.left = "450px";
 	z.style.left = "0px";
 }
 
 function registrar(){
-	x.style.left = "-400px";
-	y.style.left = "50px";
+	formulario.style.left = "-400px";
+	formularioR.style.left = "50px";
 	z.style.left = "120px";
 }
 
@@ -92,41 +98,126 @@ function LlenarCiudades(){
     	}
 	}
 }
+function validationF(inputName){
+  var varInput =  document.getElementById(inputName).value;
+  var tam = formularioR.length;
+  
+  for(var i=0; i<tam; i++){
+	    if(inputName.localeCompare(nombresID[i]) == 0){
+	  	  var text = document.getElementById(arregloTextos[i]);
+		  var pattern = regulares[i];
+		  if(varInput.match(pattern)){
+		  	text.innerHTML = arregloMensajePos[i];
+			text.style.color = "#00C851";
+		    camposVal[i] = true;
 
-function validacion() {
-	let password = document.f1.password;
-	let password2 = document.f1.password2;
-	let form = document.f1;
-    let indice = select_departamentos.selectedIndex;
+		  }else{
+		    text.innerHTML = arregloMensaNeg[i];
+		    text.style.color = "#ff0000";
+		    camposVal[i] = false;
+		  }
 
-    if (form.nombre.value ==0 ){
-		form.nombre.value="";
-		form.nombre.focus();
-		return false;
-	}else if (form.apellidos.value ==0 ){
-		form.apellidos.value="";
-		form.apellidos.focus();
-		return false;
-	}else if( indice == null || indice == 0 ) {
+		  if(varInput==""){
+		  	camposVal[i] = false;
+		    text.innerHTML="";
+		    text.style.color = "#00ff00";
+		  }
+	    }
+    }
+}
+
+
+function validarClaves(){
+  let password = document.f1.password.value;
+  let password2 = document.f1.password2.value;
+
+  var text = document.getElementById("texClr2");
+  var pattern = /^[a-zA-Z0-9\_\-]{8,12}$/;
+	  if(password2.match(pattern) && password.localeCompare(password2) == 0){
+		     text.innerHTML="Las contraseñas coinciden";
+		     text.style.color = "#00C851";
+		     camposVal[5]=true;
+	  }else{
+		    text.innerHTML="Las contraseñas no coinciden";
+		    text.style.color = "#ff0000";
+		    camposVal[5]=false;
+	  }
+	  if(password2==""){
+	  	camposVal[5]=false;
+	    text.innerHTML="";
+	    text.style.color = "#00ff00";
+	  }	
+}
+
+function validarSelect(){
+	let indice = select_departamentos.selectedIndex;
+	if( indice == null || indice == "" ) {
 		alert('Seleccione un departamento');
-         return false;
-	}else if (form.usuario.value ==0 ){
-		form.usuario.value="";
-		form.usuario.focus();
-		 return false;
-	}else if(form.correo.value ==0){
-		form.correo.value="";
-		form.correo.focus();
+        camposVal[6]=false;
+	}else{
+		camposVal[6]=true;
+	}
+}
+
+function val(){
+	validarSelect();
+	var i=-1;
+	var t = camposVal.length;
+	for(i=0; i<t;i++){
+		if(camposVal[i]==false){
+			break;
+		}
+	}
+	if(i==7){
+		return true;
+	}else{
+		alert("Campos incorrectos");
 		return false;
-	}else if(password.value != password2.value){
-       password.value="";
-       password2.value="";
-       alert("Las contraseñas son distintas...");
-   	   return false;
-	}else if(password.value == "" || password2.value==""){
-       password.value="";
-       password2.value="";
-       alert("Ingrese una contraseña");
-   	   return false;
+	}
+}
+
+function CambiarTexto(){
+	let ListaUsuarios = JSON.parse(localStorage.getItem("lista"));
+	if(ListaUsuarios!=null){
+		var tm = ListaUsuarios.length;
+		var nom = ListaUsuarios[tm-1].nombre;
+		var ap = ListaUsuarios[tm-1].apellidos;
+		var email = ListaUsuarios[tm-1].correo;
+	    document.getElementById("NomContacto").placeholder = "Nombre: "+ nom + " " +ap ;
+	    document.getElementById("CorrContacto").placeholder = "Correo: "+ email;
+	}
+}
+
+const nombresIDF = ["asunto","mensaje"];
+const regularesF = [/^[a-zA-ZÀ-ÿ\s ]{5,18}$/,/^[a-zA-Z0-9\_\-\.\, ]{10,50}$/];
+let camposValF = [false,false];  
+
+function valF(){
+  for(var i=0; i<2; i++){
+  		 var varInput = document.getElementById(nombresIDF[i]).value;
+		  var pattern = regularesF[i];
+		  if(varInput.match(pattern)){
+		    camposValF[i] = true;
+
+		  }else{
+		    camposValF[i] = false;
+		  }
+
+		  if(varInput==""){
+		  	camposValF[i] = false;
+		  }
+  }
+    for(i=0; i<2;i++){
+		if(camposValF[i]==false){
+			break;
+		}
+	}
+	if(i==2){
+		alert("¡Mensaje envidao!");
+
+		return true;
+	}else{
+		alert("Campos incorrectos");
+		return false;
 	}
 }
