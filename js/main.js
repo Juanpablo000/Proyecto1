@@ -1,4 +1,4 @@
-let select_ciudad, select_departamentos, genero, formulario,formularioR,z;
+let select_ciudad, select_departamentos, genero, formulario,formularioR,z, user;
 let departamentos = ["Seleccione", "Antioquia", "Amazonas","Arauca", "Atlantico","Bolívar","Boyacá","Caldas","Caquetá","Casanare","Cauca","Cesar","Chocó",
 "Córdoba","Cundinamarca","Guainía","Guaviare","Huila","La Guajira","Magdalena","Meta","Nariño", "Norte de Santander", "Putumayo", "Quindío", "Risaralda",
 "San Andrés", "Santander", "Sucre","Tolima","Valle del Cauca","Vaupés", "Vichada"];
@@ -52,6 +52,7 @@ window.onload = ()=>{
 	formulario = document.getElementById("Flogin");
 	formularioR = document.getElementById("registro");
 	z = document.getElementById("elegir");
+	user = document.getElementById("userA");
 	
 	if(document.getElementById("contacto")!=null){
 		CambiarTexto();
@@ -62,6 +63,105 @@ window.onload = ()=>{
 	}
 	
 };
+
+function procesarDatos(){
+	fetch('scripts/script.php', {
+	method: 'post',
+	body:new FormData(formularioR)
+	}).then(function(response) {
+		return response.json(); 
+	}).then(function(json) {
+		guardarDatos(json);
+	}).catch(function(err) {
+		console.log("error en registro");
+	});
+}
+ 
+function procesarDatosLogin(){
+
+let persona = localStorage.getItem("lista");
+
+	if (persona!=null){
+		fetch('scripts/script.php', {
+		method: 'post',
+		body:new FormData(formulario)
+		}).then(function(response) {
+			return response.json(); 
+		}).then(function(json) {
+			validarLogin(json);
+		}).catch(function(err) {
+			console.log("error en el login");
+		});
+	}
+	
+    
+}
+
+function guardarDatos(json){
+	let Listausuario = JSON.parse(localStorage.getItem("lista"));
+	
+	var contrl = true;
+	if(Listausuario!=null){
+		//validar usario unico
+	var tm = Listausuario.length;
+		for(var i=0; i<tm;i++){
+	        if(json.Listausuario === Listausuario[i].usuario){
+	            alert('El usuario ' + Listausuario[i].usuario +' ya existe');
+	            contrl = false;
+	            break;
+	        }
+	    }
+        //validar correo unico
+	    for(var i=0; i<tm;i++){
+	        if(json.correo === Listausuario[i].correo){
+	            alert('El correo ' + Listausuario[i].correo +' ya existe');
+	            contrl = false;
+	            break;
+	        }
+	    }
+	if (contrl!=false){
+	        Listausuario.push(json); 
+	        localStorage.setItem("lista",JSON.stringify(Listausuario));
+	        alert('Su cuenta ha sido creada');
+		}
+	}else{
+		  if(!(Listausuario instanceof Array)){
+	        Listausuario = []; 
+	        Listausuario.push(json); 
+	        localStorage.setItem("lista",JSON.stringify(Listausuario));
+	        alert('Su cuenta ha sido creada');
+	    }
+	}
+	window.location.href = './';
+}
+
+function validarLogin(json){
+  let usuario = JSON.parse(localStorage.getItem("lista"));
+  var variable =1;
+  if(usuario!=null){
+  	var tm = usuario.length;
+  	for(var i=0; i<tm;i++){
+  		if (usuario[i].password === json.password && usuario[i].usuario === json.usuario){
+  		 	variable = -1;
+		 	break;
+		 } 
+  	}
+  	
+  		if(variable==1){
+	        alert('Error en el login');
+	        window.location.href = './';
+		}else if(variable== -1){
+	        alert('Has iniciado sesion ' + json.usuario);
+	        window.location.href = './paginas/principal.html';
+	 
+  		}
+
+	}else{
+	     alert('No se ha registrado');
+		 window.location.href = './';
+	    }
+}
+	
 
 function login(){
 	formulario.style.left = "50px";
@@ -169,6 +269,7 @@ function val(){
 		}
 	}
 	if(i==7){
+		procesarDatos();
 		return true;
 	}else{
 		alert("Campos incorrectos");
@@ -218,6 +319,39 @@ function valF(){
 		return true;
 	}else{
 		alert("Campos incorrectos");
+		return false;
+	}
+}
+
+const nombresIDL = ["userA","claveA"];
+const regularesL = [/^[A-Za-z0-9!?-]{5,12}$/,/^[a-zA-Z0-9\_\-]{8,12}$/];
+let camposValL = [false,false];  
+
+function valLogin(){
+	 for(var i=0; i<2; i++){
+  		 var varInput = document.getElementById(nombresIDL[i]).value;
+		  var pattern = regularesL[i];
+		  if(varInput.match(pattern)){
+		    camposValL[i] = true;
+
+		  }else{
+		    camposValL[i] = false;
+		  }
+
+		  if(varInput==""){
+		  	camposValL[i] = false;
+		  }
+  }
+    for(i=0; i<2;i++){
+		if(camposValL[i]==false){
+			break;
+		}
+	}
+	if(i==2){
+		procesarDatosLogin();
+		return true;
+	}else{
+		alert("Campos incorrectos en el Login");
 		return false;
 	}
 }

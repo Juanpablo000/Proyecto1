@@ -16,12 +16,12 @@
 			<button type="button" class="toggle-btn" onClick="registrar()">Registrarse</button>
 			</div>
 				<form action="scripts/script.php" class="input-group1" id="Flogin" method="post">
-				<input name= "userA" id= "userA" type="text" class="input-login" placeholder="Nombre de usuario" pattern="[A-Za-z0-9!?-]{5,12}" required/>
-				<input name = "claveA" id="claveA" type="password" class="input-login" placeholder="Contraseña" pattern="[a-zA-Z0-9\_\-]{8,12}$" required/>
-				<button type="submit" class="submit-btn" id="btn1">Acceder</button>
+				<input name= "userA" id= "userA" type="text" class="input-login" placeholder="Nombre de usuario" required/>
+				<input name = "claveA" id="claveA" type="password" class="input-login" placeholder="Contraseña" required/>
+				<button type="submit" class="submit-btn" id="btn1" onClick="return valLogin()">Acceder</button>
 				</form>
 	
-				<form action="scripts/registro.php" class="input-group" id="registro" method="post" name="f1">
+				<form action="scripts/script.php" class="input-group" id="registro" method="post" name="f1">
 					<input type="text" name="nombre" id="nombre" placeholder="Nombre" class="input-field" onkeyup="validationF(this.id)" required/>
 			        <span id="textNom"></span>
 
